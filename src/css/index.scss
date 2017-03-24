@@ -1,0 +1,149 @@
+$green: #458200;
+$black: #000;
+$lightTan: #ecebcf;
+$lightGrey: #e6e6e6;
+$darkTan: #c7c7a5;
+
+$mobileViewport: 640px;
+
+$primary-spacing: 10px;
+$secondary-spacing: 20px;
+$tertiary-spacing: 5px;
+
+@mixin prefix($property, $value) {
+	@each $prefix in webkit ms moz {
+		#{'-' + $prefix + '-' + $property}: $value;
+	}
+	#{$property}: $value;
+}
+
+@mixin border-radius ($radius) {
+	@include prefix(border-top-left-radius, $radius);
+	@include prefix(border-top-right-radius, $radius);
+}
+
+@mixin gradient ($rotation, $color1, $color2) {
+	background: -webkit-linear-gradient($rotation, $color1, $color2);
+	background: -moz-linear-gradient($rotation, $color1, $color2);
+	background: linear-gradient($rotation, $color1, $color2);
+}
+
+@mixin flexbox () {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+
+
+.product-tile {
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 14px;
+	@include prefix( box-shadow, $tertiary-spacing $tertiary-spacing $primary-spacing $lightGrey);
+	max-width: 920px;
+
+	a {
+		cursor: pointer;
+	}
+
+	.carousel-title {
+		height: 50px;
+		@include gradient(90deg, $lightTan, $darkTan);
+		@include border-radius($tertiary-spacing);
+		.close-tile {
+			width: 100%;
+			display: block;
+			.title {
+				color: $black;
+				display: inline-block;
+				margin: 0 0 0 $primary-spacing;
+				line-height: 50px;
+			}
+			.fa {
+				color: $green;
+				&.fa-file {
+					margin-left: $secondary-spacing;
+					font-size: 16px;
+				}
+				&.fa-caret-down {
+					float: right;
+					line-height: 50px;
+					margin-right: $secondary-spacing;
+				}
+			}
+		}
+	}
+
+	.carousel-content {
+		max-height: 350px;
+    	overflow:hidden;
+		border-bottom: 1px solid $lightGrey;
+		@include prefix(transition, max-height 0.5s ease-out);
+
+		&.collapsed {
+			max-height: 0 !important;
+			@include prefix(transition, max-height 0.5s ease-out);
+		}
+		.carousel-item {
+			max-height: 250px;
+    		border-bottom: 1px solid $lightGrey;
+    		overflow:hidden;
+			@include flexbox;
+			@include prefix(align-items, center);
+			@include prefix(justify-content, center);
+
+			&.hidden {
+				display: none;
+			}
+			.carousel-item-packshot {
+				width: 33%;
+			}
+			.carousel-item-description {
+				width: 67%;
+				display: inline-block;
+				margin: $secondary-spacing;
+				&.full-width {
+					width: 100%;
+				}
+			}
+		}
+		.pagination {
+    		height: 45px;
+    		.pagination-label {
+    			color: $green;
+    			line-height: 45px;
+    			text-decoration: underline;
+    			&.pagination-previous {
+    				.fa-caret-left {
+    					margin: 0 $primary-spacing 0 $secondary-spacing;
+    				}
+    			}
+    			&.pagination-next {
+    				float: right;
+    				.fa-caret-right {
+    					margin: 0 $secondary-spacing 0 $primary-spacing;
+    				}
+    			}
+    		}
+    		.fa {
+    			font-size: 16px;
+    		}
+		}
+	}
+
+	@media only screen and (max-width: $mobileViewport) {
+		.carousel {
+			.carousel-content {
+				max-height: 500px;
+				.carousel-item {
+					max-height: 400px;
+					@include prefix(flex-direction, column);
+					@include prefix(justify-content, flex-start);
+				}
+				.carousel-item-description {
+					width: calc(100% - 20px);
+				}
+			}
+		}
+	}
+}

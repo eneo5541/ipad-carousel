@@ -1,0 +1,8 @@
+
+.DS_Store
+.idea/
+.sass-cache/
+node_modules/
+src/css/index.css
+src/css/index.css.map
+src/index.min.js
