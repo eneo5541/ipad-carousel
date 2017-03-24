@@ -22,15 +22,16 @@ export default class Pagination extends React.Component {
 
 	render () {
 		let nextTitle = this.props.data.length? this.props.data[this.incrementSelectedIndex(1)].title : 'Next';
-
+		//Do not display the title as the next anchor in mobile viewport, because real estate is limited - display 'next' instead
 		return (
 			<div class='pagination row'>
 				<a role='link' href='javascript:undefined' class='pagination-label pagination-previous' onClick={this.decreasePagination.bind(this)}>
 					<i class="fa fa-caret-left" aria-hidden="true"></i>
 					Previous
 				</a>
-				<a hrole='link' href='javascript:undefined' class='pagination-label pagination-next' onClick={this.increasePagination.bind(this)}>
-					{nextTitle}
+				<a role='link' href='javascript:undefined' class='pagination-label pagination-next' onClick={this.increasePagination.bind(this)}>
+					<span class='hide-for-small'>{nextTitle}</span>
+					<span class='show-for-small'>Next</span>
 					<i class="fa fa-caret-right" aria-hidden="true"></i>
 				</a>
 			</div>

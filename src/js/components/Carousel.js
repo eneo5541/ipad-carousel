@@ -19,21 +19,21 @@ export default class Carousel extends React.Component {
 		this.setState({selectedIndex});
 	}
 
-	toggleTile () {
+	toggleCarousel () {
 		let collapsed = !this.state.collapsed;
 		this.setState({collapsed});
 	}
 
 	render () {
 		let content = this.props.data && this.props.data.content ? this.props.data.content : [],
-			collapsed = 'row carousel-content ' + (this.state.collapsed ? 'collapsed' : '');
+			collapsed = 'carousel ' + (this.state.collapsed ? 'collapsed' : '');
 
 		return (
-			<div class='carousel'>
+			<div class={collapsed}>
 				<div class='row carousel-title'>
-					<CarouselHeader data={this.props.data} onClick={this.toggleTile.bind(this)} />
+					<CarouselHeader data={this.props.data} onClick={this.toggleCarousel.bind(this)} />
 				</div>
-				<div class={collapsed}>
+				<div class='row carousel-content'>
 					<CarouselItem data={content[this.state.selectedIndex]} />
 					<div class='row'>
 						<Pagination selectedIndex={this.state.selectedIndex} data={content} selectedIndexChanged={this.selectedIndexChanged.bind(this)} />

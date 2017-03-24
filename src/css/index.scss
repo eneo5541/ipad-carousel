@@ -46,11 +46,26 @@ $tertiary-spacing: 5px;
 		cursor: pointer;
 	}
 
+	.carousel {
+		&.collapsed {
+			.toggle-carousel {
+				.fa-caret-up {
+					@include prefix(transform, rotate(180deg));
+					@include prefix(transition, transform 0.5s ease-out);
+				}
+			}
+			.carousel-content {
+				max-height: 0 !important;
+				@include prefix(transition, max-height 0.5s ease-out);
+			}
+		}
+	}
+
 	.carousel-title {
 		height: 50px;
 		@include gradient(90deg, $lightTan, $darkTan);
 		@include border-radius($tertiary-spacing);
-		.close-tile {
+		.toggle-carousel {
 			width: 100%;
 			display: block;
 			.title {
@@ -65,10 +80,11 @@ $tertiary-spacing: 5px;
 					margin-left: $secondary-spacing;
 					font-size: 16px;
 				}
-				&.fa-caret-down {
+				&.fa-caret-up {
 					float: right;
 					line-height: 50px;
 					margin-right: $secondary-spacing;
+					@include prefix(transition, transform 0.5s ease-out);
 				}
 			}
 		}
@@ -80,10 +96,6 @@ $tertiary-spacing: 5px;
 		border-bottom: 1px solid $lightGrey;
 		@include prefix(transition, max-height 0.5s ease-out);
 
-		&.collapsed {
-			max-height: 0 !important;
-			@include prefix(transition, max-height 0.5s ease-out);
-		}
 		.carousel-item {
 			max-height: 250px;
     		border-bottom: 1px solid $lightGrey;
@@ -132,6 +144,9 @@ $tertiary-spacing: 5px;
 	}
 
 	@media only screen and (max-width: $mobileViewport) {
+		.hide-for-small {
+			display: none !important;
+		}
 		.carousel {
 			.carousel-content {
 				max-height: 500px;
@@ -146,4 +161,10 @@ $tertiary-spacing: 5px;
 			}
 		}
 	}
+	@media screen and (min-width: $mobileViewport + 1) {
+		.show-for-small {
+			display: none !important;
+		}
+	}
+
 }
